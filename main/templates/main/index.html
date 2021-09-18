@@ -2,11 +2,56 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Опрос пользователей</title>
+    <title>{{ title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
 </head>
 <body>
     <h1>Прохождение опросов</h1>
     <p>Пройдите пару опросов по желанию</p>
+    {% for el in qst %}
+        <div class="alert alert-warning mt-2">
+            <h5>{{ el.title }}</h5>
+
+
+        <form method="post">
+        {% csrf_token %}
+
+           {% for a in el.answer_set.all %}
+
+             <div>
+               {{ form.completed }}
+                <label>{{ a }}</label>
+
+             </div>
+           {% endfor %}
+         <button class="btn btn-success" name="button" type="submit">Сохранить</button>
+
+
+        </form>
+
+
+        </div>
+
+    {% endfor %}
+
+
+    <div class="alert alert-warning mt-2 fild">
+        {% for q in qt %}
+
+            <h5>{{ q }}</h5>
+
+
+            <form method="post">
+            {% csrf_token %}
+
+             <input type="text" placeholder="Ввод ответа" class="form-control">
+             <button class="btn btn-success" name="button" type="submit">Сохранить</button>
+
+
+            </form>
+
+
+        {% endfor %}
+    </div>
 </body>
 </html>
